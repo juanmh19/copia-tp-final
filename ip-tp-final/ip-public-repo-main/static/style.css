@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100..900&family=Roboto&display=swap');
+
+* {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+#loading__spinner {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #080808c7;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+}
+    
+#loading__spinner img {
+    width: 10rem;
+    height: 10rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+:root {
+    --principal: #D50000;
+}
+
+.header {
+    z-index: 1;
+    position: fixed;
+    height: 10vh;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: black;
+
+    .header__caja {
+        display: flex;
+        align-items: center;
+    }
+
+    .header__contenedor {
+        transform: translate(-50%, -50%);
+        padding: 10px;
+    }
+
+    .header__buscador {
+        position: absolute;
+        outline: none;
+        box-sizing: border-box;
+        height: 40px;
+        width: 0px;
+        padding: 0 20px;
+        top: 0px;
+        left: -21px;
+        color: #000;
+        border-radius: 50px;
+        font-size: 20px;
+        border: 1px solid var(--principal);
+        transition: all .7s ease;
+    }
+
+    .header__contenedor--icono {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 40px;
+        height: 40px;
+        background: var(--principal);
+        line-height: 80px;
+        border-radius: 50%;
+        text-align: center;
+        cursor: pointer;
+        transition: .5s;
+    }
+
+    .header__contenedor:hover .header__buscador {
+        width: 250px;
+        padding: 0 50px;
+    }
+
+    .header__nav {
+        margin-right: -40px;
+    }
+
+    .header__a {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 20px;
+        position: relative;
+    }
+
+    .header__a--inicio {
+        display: none;
+    }
+
+    .header__a::after {
+        z-index: 99;
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        top: 25px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background-color: var(--principal);
+        transition: width 0.5s;
+    }
+
+    .header__a:hover::after {
+        width: 100%;
+    }
+
+    .header__icono {
+        cursor: pointer;
+        width: 35px;
+    }
+
+    .header__menu {
+        display: none;
+    }
+
+
+    @media (max-width: 680px) {
+        .header__menu {
+            display: flex;
+        }
+
+        .header__caja--icono {
+            display: none;
+        }
+
+        .header__nav {
+            display: none;
+        }
+    }
+
+    .header__menu:hover .header__nav {
+        display: flex;
+    }
+}
+.menu__abierto {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    z-index: 99;
+    background-color: #080808;
+    top: 60px;
+
+    .header__a--inicio {
+        display: flex;
+    }
+}
+.header__fondo {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #080808c7;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.header__caja--perfil {
+    display: none;
+    box-shadow:  0 0 3px var(--principal);
+    z-index: 101;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 500%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 15rem;
+    width: 20rem;
+    background-color: #080808;
+    .no__autenticado {
+
+        margin: 20px 0;
+        .login__cerrarCaja {
+            display: flex;
+            justify-content: end;
+        }
+        .login__cerrar {
+            color: #fff;
+            font-size: 28px;
+            margin-top: -20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .login__titulo {
+            color: #fff;
+            font-size: 28px;
+        }
+        .login__input {
+            width: 60%;
+            margin-top: 10px;
+            height: 30px;
+            border-radius: 20px;
+            font-size: 15px;
+            padding-left: 10px;
+            border: 1px solid var(--principal);
+            transition: all .7s ease;
+        }
+        .login__registrate {
+            color: #ffffffb0;
+            margin-top: 10px;
+        }
+        .login__submit {
+            width: 60%;
+            color: #fff;
+            height: 40px;
+            font-size: 18px;
+            background-color: var(--principal);
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .login__submit:hover{
+            background-color: #d5000000;
+            border: 1px solid var(--principal);
+            transition: 1s;
+        }
+    }
+    .autenticado {
+        display: none;
+        height: 90%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+.visible {
+    display: flex;
+}
+.cajaIcono {
+    z-index: 0;
+    margin-top: -7vh;
+    display: flex;
+    justify-content: center;
+
+    .cajaIcono__circulo {
+        background-image: url();
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        position: fixed;
+        height: 12rem;
+        width: 12rem;
+        background-color: black;
+        border-radius: 0 0 160% 160%;
+    }
+
+    .cajaIcono__imagen {
+        width: 12rem;
+    }
+
+    .cajaIcono__imagen:first-child {
+        border-radius: 100%;
+        width: 7rem;
+        position: relative;
+        top: 345px;
+        left: 40px;
+    }
+
+    .cajaIcono__imagen:last-child {
+        filter: drop-shadow(0 0 4px black);
+        position: relative;
+        top: 150px;
+        user-select: none;
+        animation: imagen 3s linear infinite;
+    }
+}
+
+@keyframes imagen {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    35% {
+        transform: rotateZ(20deg);
+    }
+
+    70% {
+        transform: rotateZ(-20deg);
+    }
+
+    100% {
+        transform: rotateZ(0deg);
+    }
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    margin-top: 17vh;
+    background-image: url(/static/space1.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+
+    .hero__cajaIzquierda {
+        color: #fff;
+        margin-left: 40px;
+    }
+
+    .hero__h1 {
+        font-size: 48px;
+    }
+
+    .hero__p {
+        margin: 10px 0;
+    }
+
+    .hero__boton {
+        background-color: var(--principal);
+        border: none;
+        color: #fff;
+        height: 40px;
+        width: 10rem;
+        border-radius: 8px;
+        font-size: 18px;
+    }
+
+    .hero__boton:hover {
+        cursor: pointer;
+        background-color: rgba(194, 2, 2, 0);
+        border: 1px solid var(--principal);
+        transition: 0.5s;
+    }
+}
+
+.imagenes {
+    height: 100%;
+    background-color: #080808;
+
+    .imagenes__cajaTitulo {
+        display: grid;
+        grid-template-columns: 80% 20%;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+    }
+
+    .imagenes__h2 {
+        font-size: 48px;
+        text-align: center;
+        color: #fff;
+        padding: 40px 0;
+    }
+
+    .imagenes__guardado {
+        width: 35px;
+        height: 35px;
+        margin-right: 20px;
+        cursor: pointer;
+        position: relative;
+        z-index: 50;
+    }
+
+    .imagenes__guardado:hover {
+        transform: scale(1.1);
+    }
+
+    .imagenes__caja--grid {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: repeat(3, 33.32%);
+        grid-template-rows: repeat(2, 1fr) 0;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        margin: 0 50px;
+        color: #fff;
+        
+    }
+    @media (max-width: 1200px) {
+        .imagenes__caja--grid {
+            grid-template-columns: repeat(2, 50%);
+        }
+    }
+    @media (max-width: 720px) {
+        .imagenes__caja--grid {
+            grid-template-columns: repeat(1, 100%);
+        }
+    }
+
+    .imagenes__cajaImagenes {
+        color: black;
+        background-color: #ffffff;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+    }
+
+    .imagenes__imagen {
+        width: 100%;
+        height: 20rem;
+        border-radius: 20px 20px 0 0;
+        object-fit: cover;
+    }
+
+    .imagenes__titulo {
+        margin: 20px 20px 20px 20px;
+        font-size: 24px;
+        font-weight: bold;
+        overflow-wrap: break-word;
+    }
+
+    .imagenes__descripcion {
+        margin: 0 20px 20px 20px;
+        overflow-wrap: break-word;
+    }
+}
+
+::-webkit-scrollbar {
+    background-color: #080808;
+    width: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: url(/static/cohete4.png);
+    /* Imagen normal */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 10rem;
+}
+
+/* Estilo para cuando la barra de desplazamiento está activa */
+.scrolling::-webkit-scrollbar-thumb {
+    background-image: url(/static/cohete4Vuelta.png);
+    /* Imagen volteada */
+    transform: rotate(180deg);
+    /* Voltea la imagen */
+}
+
+.menu__exit {
+    color: var(--principal);
+    margin-left: 10px;
+    list-style: none;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style href="/ip-public-repo-main/static/style.css"></style>
+    <title>Document</title>
+</head>
+<header class="header">
+    <p class="header__p">Alumno / Herner, Juan Manuel</p>
+    <p class="header__p">Docentes - Arganaras, Omar y Benesch, Alicia</p>
+</header>
+
+<body>
+    <section class="hero__inicio">
+        
+        {% block content %} {% if request.user.is_authenticated %}
+        <h2 class="hero__h2">Bienvenido <span style="color: var(--principal);">{{ user.username | upper }}!</span></h2>
+        {% else %}
+        <h2 class="hero__h2">Bienvenido!</h2>
+        {% endif %}
+        <p class="hero__p">
+            Mirá las imágenes:
+        </p>
+        <a href="{% url 'home' %}"><button class="hero__boton">Continuar</button></a>
+        {% endblock %}
+    </section>
+    <footer class="footer">
+        <p class="footer__p">Introducción a la programación / UNGS</p>
+        <P class="footer__p">Trabajo practico - 1er cuatrimestre del 2024</P>
+    </footer>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100..900&family=Roboto&display=swap');
+
+        * {
+            color: #fff;
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        :root {
+            --principal: #D50000;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            height: 10vh;
+            background-color: #080808;
+            .header__p{
+                margin: 10px 20px;
+            }
+        }
+
+        .hero__inicio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #080808;
+            height: 80vh;
+            .hero__h2 {
+                font-size: 48px;
+            }
+            .hero__p {
+                margin: 10px 0;
+            }
+
+            .hero__boton {
+                height: 40px;
+                width: 8rem;
+                font-size: 18px;
+                background-color: var(--principal);
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: 1s;
+            }
+            .hero__boton:hover{
+                border: 1px solid var(--principal);
+                background-color: #d5000000;
+            }
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            height: 10vh;
+            background-color: #080808;
+
+            .footer__p {
+                margin: 10px 20px;
+            }
+        }
+    </style>
+</body>
+
+</html>

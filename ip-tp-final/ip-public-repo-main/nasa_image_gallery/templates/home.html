@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__caja">
+            <div class="header__contenedor">
+                <form action="{% url "search"  %}" method="POST" id="buscador">
+                    {% csrf_token %}
+                    <input class="header__buscador" type="search" name="query" placeholder="Tu busqueda"
+                        aria-label="Search">
+                </form>
+                <div class="header__contenedor--icono">
+                    <img id="header__icono" class="header__icono" src="/static/icons8-search-50.png" alt="">
+                </div>
+            </div>
+        </div>
+        <nav class="header__nav" id="header__nav">
+            <a href="#" class="header__a">Home</a>
+            <a href="#imagenes" class="header__a">Imagenes</a>
+            <a href="#" class="header__a">Favoritos</a>
+            <a href="" class="header__a header__a--inicio">Iniciar Sesion</a>
+        </nav>
+        <img id="menu" class="header__menu header__icono" src="/static/menu.png" alt="">
+        <div id="loading__spinner" class=".loading__spinner">
+            <img src="/static/loading.png" alt="">
+        </div>
+        {% block content %}
+        <div class="header__caja header__caja--icono">
+            <img id="menu__perfil" class="header__icono header__perfil" src="/static/icons8-male-user-50.png" alt="">
+            {% if user.is_authenticated %}
+            <p style="color: white;">{{ user.username | upper }}</p>
+            <a style="color: #fff; margin-left: 10px; background-color: var(--principal); border-radius: 10px; padding: 10px;" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <p style="color: white;">Invitado</p>
+            {% endif %}
+            <div id="header__fondo" class="header__fondo"></div>
+            <div id="header__caja__perfil" class="header__caja--perfil">
+                <div class="no__autenticado">
+                    <div id="login__form" class="login__form" style="text-align: center;">
+                        <form action="{% url 'login' %}" method="POST" style="display: inline-block;" id="sesion">
+                            {% csrf_token %}
+                            <div class="login__cerrarCaja">
+                                <p id="login__cerrar" class="login__cerrar">x</p>
+                            </div>
+                            <h2 class="login__titulo">Inicio de sesión</h2>
+                            <div class="login__caja" style="margin-bottom: 5%;">
+                                <input type="text" name="username" id="username" class="login__input"
+                                    placeholder="Usuario" required="required">
+                                <input type="password" name="password" id="password" class="login__input"
+                                    placeholder="Contraseña" required="required">
+                            </div>
+                            <button type="submit" class="login__submit">Ingresar</button>
+                        </form>
+                    </div>
+                    {% endblock %}
+                
+                </div>
+                <div class="autenticado">
+                    <a class="header__a" href="">Perfil</a>
+                    <a class="header__a" href="">Favoritos</a>
+                    <a class="header__a" href="">Finalizar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="cajaIcono">
+        <div class="cajaIcono__circulo">
+            <div class="cajaIcono__imagenes">
+                <img class="cajaIcono__imagen" src="/static/rojopng.png" alt="">
+                <img id="astronauta" class="cajaIcono__imagen"
+                    src="/static/NASA WALLPAPER em 2022 _ Tela de fundo, Vingadores… (1) (1).png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero__cajaIzquierda">
+            <h1 class="hero__h1">LA NASA<br>Todas las imagenes <br>en un mismo lugar</h1>
+            <p class="hero__p">Podras hallar las mejores imagenes captadas aqui</p>
+            <a href="#imagenes"><button class="hero__boton">Continuar</button></a>
+        </div>
+        <div></div>
+    </section>
+
+    <section class="imagenes" id="imagenes">
+        <div>
+            <h2 class="imagenes__h2">Elegí las mejores</h2>
+        </div>
+        
+        <div class="imagenes__caja--grid">
+            {% for imagen in images  %}
+            <div class="imagenes__cajaImagenes">
+                <img class="imagenes__imagen" src="{{ imagen.image_url }}" alt="imagen">
+                <div class="imagenes__cajaTitulo">
+                    <p class="imagenes__titulo">{{ imagen.title }}</p>
+                    {% if imagen.id in favourite_list %}
+                    <form method="post" action="{% url 'agregar-favorito' %}">
+                        {% csrf_token %}
+                        <input type="image" class="imagenes__guardado" src="/static/saveSeleccionado.png" alt="Guardar">
+                    </form>
+                    {% else %}
+                    <img class="imagenes__guardado" src="/static/guardado.png" alt="">
+                    {% endif %}
+                </div>
+                <p class="imagenes__descripcion">{{ imagen.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% if images.has_previous or images.has_next %}
+        <div style="height: 4rem;">
+            <div class="paginacion" style="display: flex; justify-content: center;">
+                {% if images.has_previous %}
+                <a style="color: #fff; background-color: var(--principal); padding: 10px; border-radius: 10px;" href="?page={{ images.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <span style="color: #fff; margin-bottom: 20px;" class="paginacion__actual">Página {{ images.number }} de {{ images.paginator.num_pages }}</span>
+                {% if images.has_next %}
+                <a style="color: #fff; background-color: var(--principal); padding: 10px; border-radius: 10px;" href="?page={{ images.next_page_number }}">Siguiente</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+    <footer></footer>
+    <script src="/static/app.js"></script>
+</body>
+
+</html>
